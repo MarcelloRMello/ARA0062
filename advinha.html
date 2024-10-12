@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Adivinhação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #game-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: auto;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <h1>Jogo de Adivinhação</h1>
+    <p>Adivinhe um número entre 1 e 100!</p>
+    
+    <input type="number" id="user-input" placeholder="Seu palpite" min="1" max="100">
+    <button id="guess-button">Adivinhar</button>
+    
+    <div class="message" id="message"></div>
+</div>
+
+<script>
+    // Variáveis do jogo
+    let numeroAleatorio = Math.floor(Math.random() * 100) + 1;
+    let tentativas = 0;
+
+    // Função que verifica o palpite
+    function verificarPalpite() {
+        let userInput = document.getElementById("user-input").value;
+        let message = document.getElementById("message");
+
+        if (!userInput) {
+            message.innerText = "Por favor, insira um número.";
+            return;
+        }
+
+        let palpite = parseInt(userInput);
+        tentativas++;
+
+        if (palpite === numeroAleatorio) {
+            message.innerText = `Parabéns! Você acertou o número ${numeroAleatorio} em ${tentativas} tentativas.`;
+            document.getElementById("guess-button").disabled = true; // Desabilita o botão após acerto
+        } else if (palpite < numeroAleatorio) {
+            message.innerText = "O número é maior!";
+        } else {
+            message.innerText = "O número é menor!";
+        }
+    }
+
+    // Evento de clique no botão
+    document.getElementById("guess-button").addEventListener("click", verificarPalpite);
+</script>
+
+</body>
+</html>
